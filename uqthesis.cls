@@ -90,7 +90,7 @@
     \begin{center}
         \includegraphics[scale=0.25]{images/UQlogo.pdf}\\
         \large\sc\expandafter{The University Of Queensland}
-        \vskip1.5in
+        \vskip2.0cm
         \ifthenelse{\boolean{titlesmallcaps}}
             {\huge\sc\expandafter{\@title}} % put in small caps
             {\Large\uppercase\expandafter{\@title}} % use standard title
@@ -98,10 +98,10 @@
     \vfill
     \begin{center}
         \textrm{By}\\
-        \vskip.5in
+        \vskip0.5cm
         \textrm{\@author}\\
     \end{center}
-    \vskip1in
+    \vskip2.0cm
     \begin{center}
         \textsc{Submitted to the department of \expandafter{\@department} \\
         \degreetext{}\\
