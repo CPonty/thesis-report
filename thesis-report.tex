@@ -1,0 +1,114 @@
+\documentclass[titlesmallcaps, examinerscopy, copyrightpage]{uqthesis}
+
+\bibliographystyle{customIEEEtran}
+
+\usepackage[square,comma,numbers,sort&compress]{natbib}
+\usepackage{pdfpages}
+\usepackage{graphicx}
+\usepackage{eurosym}
+\usepackage{appendix}
+\usepackage{play}
+\usepackage[grey,times]{quotchap}
+\usepackage{makeidx}
+\makeindex
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage[nottoc,numbib]{tocbibind}
+
+\begin{document}
+
+% =====================================================================
+
+\title{Undergraduate Thesis\\ ``BlocSim: Bridging Sketch and Simulation of Block Diagram Modelled Systems'' }
+\author{Chris Ponticello}
+\department{EAIT}  % department
+
+\renewcommand{\degreetext}{in partial fulfilment of the Degree Bachelor of Engineering\\ in the
+discipline of Computer Systems Engineering}
+
+\frontmatter
+
+\titlepage
+
+\begin{flushright}
+Chris Ponticello\\ 42345493\\ 91 Kilmorey Street, Carindale, QLD 4152\\
+\end{flushright}
+
+\noindent \today \\
+
+\noindent Prof Paul Strooper\\
+Head of School\\
+School of Information Technology and Electrical Engineering\\
+The University of  Queensland\\
+St Lucia QLD 4072\\
+
+\noindent Dear Professor Strooper,\\ \\
+In accordance with the requirement of the Degree of Bachelor of Engineering (Honours) in the School
+of Information Technology and Electrical Engineering, I submit the following thesis entitled:
+
+\begin{center}
+  \emph{``BlocSim: Bridging Sketch and Simulation of Block Diagram Modelled Systems''}
+\end{center}
+
+\noindent The thesis was performed under the supervisor of Dr Mark Schultz. I declare that the work
+submitted in thesis is my own, except as acknowledge in the text and footnotes, and has not been
+previously submitted for a degree at the University of Queensland or any other institution. \\
+
+\noindent Yours sincerely \\ \\ 
+
+\noindent \line(1,0){250} \\
+
+\noindent Chris Ponticello
+
+% =====================================================================
+
+\chapter{Abstract}
+
+\chapter{Acknowledgements}
+
+% =====================================================================
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\mainmatter
+
+% =====================================================================
+
+\chapter{Introduction}
+
+\chapter{Background}
+
+\chapter{Prior Art}
+
+\chapter{BlocSim Specification}
+
+\chapter{Implementation}
+
+\chapter{Project Evaluation}
+
+\chapter{Conclusion}
+
+\cite{dummy:2012}
+
+% =====================================================================
+
+\cleardoublepage
+
+\chapter*{References}
+
+\begingroup
+\renewcommand{\chapter}[2]{}
+\bibliography{IEEEabrv,references/bibliography}
+\endgroup
+
+% =====================================================================
+
+\appendix
+
+\chapter{Source Code}
+
+\chapter{Companion Disc}
+
+\end{document}
