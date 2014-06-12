@@ -1,0 +1,25 @@
+\documentclass[a4paper]{article}
+	\usepackage{tikz}
+	\usepackage{fullpage}
+
+\newcommand{\spacing}{1.5 cm}
+\setlength{\parindent}{0pt}
+\pagenumbering{gobble}
+
+\begin{document}
+
+\begin{center}
+\begin{table}[ht]
+\foreach \i in {1,...,6}{
+\begin{tabular}{c c c c c}
+
+	Dr. Matthew D'Souza & \hspace{\spacing} & Dr. Mark Schultz & \hspace{\spacing} & Chris Ponticello \\
+	Examiner's Copy & \hspace{\spacing} & Supervisor's Copy & \hspace{\spacing} & Author's Copy \\
+	\vspace{\spacing} \\
+
+\end{tabular}
+}
+\end{table}
+\end{center}
+
+\end{document}
