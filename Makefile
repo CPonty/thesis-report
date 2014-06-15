@@ -7,6 +7,7 @@ CLEANTYPES := *.log *.lof *.lot *.toc *.out *.aux *.bbl *.bcf *.blg *.acn *.acr 
 
 REFERENCES := references/bibliography.bib
 DOC := thesis-report
+RELEASE := 42345493_ponticello
 
 # =====================================================================
 
@@ -50,4 +51,5 @@ o: reopen
 c: clean
 
 release: all clean_lite
+	cp $(DOC).pdf $(RELEASE).pdf
 
