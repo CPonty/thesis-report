@@ -1,11 +1,57 @@
 
-\chapter{Abstract}
+\begin{flushright}
+Chris Ponticello\\ 42345493\\ 91 Kilmorey Street, Carindale, QLD 4152\\
+\end{flushright}
 
+\noindent \today \\
 
+\noindent Prof Paul Strooper\\
+Head of School\\
+School of Information Technology and Electrical Engineering\\
+The University of  Queensland\\
+St Lucia QLD 4072\\
 
-\chapter{Acknowledgements}
+\noindent Dear Professor Strooper,\\ \\
+In accordance with the requirement of the Degree of Bachelor of Engineering (Honours) in the School
+of Information Technology and Electrical Engineering, I submit the following thesis entitled:
 
+\begin{center}
+  \emph{``BlocSim: Bridging Sketch and Simulation of Block Diagram Modelled Systems''}
+\end{center}
 
+\noindent The thesis was performed under the supervisor of Dr Mark Schultz. I declare that the work
+submitted in thesis is my own, except as acknowledge in the text and footnotes, and has not been
+previously submitted for a degree at the University of Queensland or any other institution. \\
+
+\noindent Yours sincerely \\ \\ 
+
+\noindent \line(1,0){250} \\
+
+\noindent Chris Ponticello
 
 % =====================================================================
 
+\chapter{Acknowledgements}
+
+First and foremost I would like to thank my supervisor, Dr Mark Schultz for his approachability and enthusiasm in discussing ideas throughout the project. I would also like to thank my friends and family for their support. 
+\\
+
+In addition, I would like to acknowledge \textit{Itseez}\footnote{Itseez - \url{http://itseez.com/OpenCV/}} and the \textit{OpenCV Foundation}'s\footnote{OpenCV Foundation - \url{http://itseez.com/OpenCV/}} contributions to developing and maintaining the OpenCV computer vision library. The rapid implementation of the \textit{BlocSim} prototype benefited greatly from OpenCV's accessibility and ease of use.
+
+% =====================================================================
+
+\chapter{Abstract}
+
+Block diagram models of engineering systems are heavily used by designers and educators in many fields, including hardware design, electronics design, software design, systems engineering and others. Models are often sketched on whiteboards, paper or similar material in the design phase. Evaluation and simulation of this model often requires manually duplicating it by hand on a computer.
+\\
+
+This report documents the development of \textit{BlocSim}, a prototype real-time software bridge between sketch and simulation of block diagram modelled systems. BlocSim is a webserver, utilising a HD webcam and real-time computer vision to generate a block diagram model from the sketching surface. Development of BlocSim has focused on extensibility - control of the computer vision functions is accessible via a webpage and Remote Procedure Call server, while the block diagram model is exposed via a Publish/Subscribe service.
+\\
+
+The goal of integrating the sketch with simulation software will require future work in writing adapter code, to convert the generic block model into a form which can be loaded by field-specific design, verification and simulation tools. This will free engineers from labor-intensive copying and provide immediate feedback on their designs.
+
+% =====================================================================
+
+\begin{comment}
+
+\end{comment}
