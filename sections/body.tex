@@ -20,8 +20,14 @@
 
 
 
-\section{Computer Vision Techniques}
+\section{Computer Vision Software \& Techniques}
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=25mm]{images/OpenCVlogo.png}
+\caption{The OpenCV Logo \cite{opencv2014}}
+\label{im:cvlogo}
+\end{figure}
 
 
 \section{Open Source Software}
@@ -36,6 +42,13 @@
 
 \section{Solution Concept}
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=150mm]{images/BlocsimBD1.jpg}
+\caption{BlocSim System Design}
+\label{im:BlocsimBD1}
+\end{figure}
+
 
 
 \section{Block Diagram Capture}
@@ -43,6 +56,27 @@
 
 
 \subsection{Fiducial Design}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=100mm]{images/BlocsimBloc1.jpg}
+\caption{Block Diagram format (sketch)}
+\label{im:BlocsimBD1}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=100mm]{images/BlocsimBloc2.jpg}
+\caption{Block Diagram format (model)}
+\label{im:BlocsimBD2}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=100mm]{images/BlocsimBloc3.jpg}
+\caption{Block Diagram format (adapted to Digital Logic)}
+\label{im:BlocsimBD3}
+\end{figure}
 
 
 
@@ -58,16 +92,164 @@
 
 \chapter{Implementation}
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=50mm]{images/BlocsimLogo.png}
+\caption{The BlocSim Logo \cite{blocsim2014}}
+\label{im:blocsimlogo}
+\end{figure}
+
 
 
 \section{Features \& Usage}
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=150mm]{images/screenshot_cv1.png}
+\caption{The BlocSim Web Control Panel \cite{blocsim2014}}
+\label{im:screenshot_cv1}
+\end{figure}
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=150mm]{images/screenshot_calib.png}
+\caption{BlocSim Control Panel - calibration sliders \cite{blocsim2014}}
+\label{im:screenshot_calib}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=150mm]{images/screenshot_pubsub.png}
+\caption{BlocSim Control Panel - Block Diagram model \cite{blocsim2014}}
+\label{im:screenshot_pubsub}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=150mm]{images/screenshot_rpc.png}
+\caption{BlocSim Control Panel - Remote Procedure Call server status \cite{blocsim2014}}
+\label{im:screenshot_rpc}
+\end{figure}
+
+\clearpage
+
+
+
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=125mm]{images/frame1.jpg}
+\caption{BlocSim output image (1) - cropped frame \cite{blocsim2014}}
+\label{im:frame1}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=125mm]{images/frame3.jpg}
+\caption{BlocSim output image (3) - red \cite{blocsim2014}}
+\label{im:frame3}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=125mm]{images/frame4.jpg}
+\caption{BlocSim output image (4) - red block \cite{blocsim2014}}
+\label{im:frame4}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=125mm]{images/frame8.jpg}
+\caption{BlocSim output image (8) - block ID \cite{blocsim2014}}
+\label{im:frame8}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=125mm]{images/frame12.jpg}
+\caption{BlocSim output image (12) - connector lines (mask) \cite{blocsim2014}}
+\label{im:frame12}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=125mm]{images/frame13.jpg}
+\caption{BlocSim output image (13) - connection nodes \cite{blocsim2014}}
+\label{im:frame13}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=125mm]{images/frame15.jpg}
+\caption{BlocSim output image (15) - block diagram overlay \cite{blocsim2014}}
+\label{im:frame15}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=125mm]{images/frame16.jpg}
+\caption{BlocSim output image (16) - block model \cite{blocsim2014}}
+\label{im:frame16}
+\end{figure}
+
+\clearpage
+
+
+
+\newpage
+\begin{figure}[ht!]
+	\fontsize{8pt}{8pt}
+	\singlespacing
+	\begin{mdframed}
+		\verbinput{images/example.json}
+	\end{mdframed}
+	\caption{Sample of JSON Block Diagram Model output (not all blocks, nodes shown)}
+	\label{tab:json}
+\end{figure}
+
+
+
+
+% =====================================================================
 
 \section{Technical Architecture}
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=150mm]{images/BlocsimBD3.jpg}
+\caption{BlocSim's Architecture}
+\label{im:BlocsimBD3}
+\end{figure}
 
-For more information on BlocSim, including code, documentation, screenshots and example output, see the online materials outlined in Appendix A.%\ref{ch:appendix}.
+%\newpage
+%\clearpage
+
+The Python webserver's functionality is split into several threads, including:
+
+\begin{description}
+	\item[Main Thread] - Executes the Tornado webserver IO Loop. Includes handling websockets and Remote Procedure Calls
+	\item[Publish Thread] - Executes the Mosquitto client IO Loop
+	\item[Capture Thread] - Reads from the camera when signalled
+	\item[Webcam Thread] - Handles webcam connection/disconnection and storing frames
+	\item[Processing Thread] - Uses OpenCV to generate images and the block model
+	\item[Timer Thread] - Limits the webcam capture frame rate
+\end{description}
+
+These threads communicate via a series of event signallers and shared resources, such as the keystore database and image processing output.
+
+
+
+% =====================================================================
+
+\section{Open-Source Delivery}
+
+The BlocSim source, release build, issue tracking and documentation are publicly hosted online at GitHub \cite{blocsim2014}\cite{github2014}. Having a centralised, publicly visible location for these services and material provides both exposure for the project and valuable support infrastructure for any future work on the project (by its original author or others) which may take place. BlocSim is licensed under GPLv2 \cite{gplv2}, a permissive license which guarantees freedom to share and change the software, appropriate for encouraging and facilitating open source development.
+\\
+
+For more information, see the resources outlined in Appendix \ref{ch:appendix}.
+
+
 
 % =====================================================================
 
@@ -76,6 +258,28 @@ For more information on BlocSim, including code, documentation, screenshots and 
 
 
 \section{Completion}
+
+\begin{table}[ht!]
+	\center
+	\begin{tabular}{$p{65mm}^l^p{65mm}} %$
+		\hline
+		\rowstyle{\bfseries}
+		Feature & Complete & Incomplete \\
+		\hline
+		Surface Capture & \gtick & \\
+		Human interface (Control Panel) & \gtick & full UI synchronisation between multiple clients \\
+		External control interface (RPC) & \gtick & \\
+		Configurable (Keystore, via the above) & \gtick & More \gls{cv} settings should be user configurable \\
+		Real-time Computer Vision for \newline Block Diagram recognition & \gtick & \\
+		Block Diagram Model output \newline (MQTT Publish/Subscribe) & \gtick & \\
+		\ldots & & \\
+		Digital Logic Adapter & & \rcross \\
+		Minimalist Digital Logic Simulator & & \rcross \\
+		\hline
+	\end{tabular}
+	\caption{Feature completion for BlocSim prototype}
+	\label{tab:completion}
+\end{table} 
 
 
 
@@ -104,6 +308,12 @@ For more information on BlocSim, including code, documentation, screenshots and 
 
 \subsection{Computer Vision Reliability}
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=125mm]{images/frame4glow.jpg}
+\caption{BlocSim output image (4) - reflections on whiteboard can result in missed block components}
+\label{im:frame4glow}
+\end{figure}
 
 
 \section{Design Decisions Review}
@@ -122,23 +332,6 @@ For more information on BlocSim, including code, documentation, screenshots and 
 
 % =====================================================================
 
-
-\begin{table}[ht]
-	\center
-	\begin{tabular}{$r^l^l} %$
-		\hline
-		\rowstyle{\bfseries}
-		Feature & Complete & Incomplete \\
-		\hline
-		Surface Capture & \gtick & \\
-		External control (RPC) & \gtick & \\
-		\ldots & & \\
-		Digital Logic Adapter & & \rcross \\
-		\hline
-	\end{tabular}
-	\caption{Feature completion for BlocSim prototype}
-	\label{tab:completion}
-\end{table} 
 
 
 \begin{comment}
