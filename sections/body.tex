@@ -31,6 +31,8 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 
 \section{Block Diagrams in Engineering}
 
+
+
 \begin{figure}[ht!]
 \includegraphics[width=70mm]{images/blockDiagram.png}
 \hspace{0.5 cm}
@@ -47,24 +49,106 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 
 
 
+\subsection{LTSpice}
+
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=50mm]{images/ltspice1.png}
+\includegraphics[width=50mm]{images/ltspice2.png}
+\caption{Simple LTSpice circuit with corresponding netlist file \cite{ltspice}}
+\label{im:ltspice}
+\end{figure}
+
+\clearpage
+
+%\cite{ltspice}
+
+
+
 \section{Block Diagram Sketch Capture}
 
 
 
-\subsection{Sketch Design Recognition \& Simulation}
+\subsection{Engineering Sketch Recognition \& Simulation}
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=75mm]{images/sketchInterpSoftware.jpg}
+\caption{Recognition of stylus-drawn electrical circuit components \cite{sketchInterpSoftware}}
+\label{im:sketchInterpSoftware}
+\end{figure}
+
+\clearpage
+
+\subsubsection{QuickDiagram}
 
 
 
-\subsection{}
+\subsection{Electronic Whiteboards}
 
 
 
-\subsection{Frame Markers}
+\subsection{Block Component Identification}
+
+%\cite{sketchInterpSoftware}
+%\cite{quickDiagram}
+%\cite{quickDiagramDemo}
+%\cite{interactiveWhiteboards}
+%\cite{interactiveWhiteboards2}
+%\cite{panasonic}
+%\cite{ledLcd}
+%\cite{handDrawnCircuits}
+%\cite{artag}
+%\cite{bestFiducial}
+%\cite{artoolkit}
+%\cite{ltspice}
+
+
+%\cite{fiducial}
+%\cite{fiducialAR}
+% G. Schall et al
+%\cite{colorFiducial}
+% H. Bagherinia et al
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=50mm]{images/fiducialPic.jpg}
+\caption{Example of fiducials present on a \gls{pcb} \cite{fiducialPic}}
+\label{im:fiducialPic}
+\end{figure}
+
+\clearpage
+
+
+
+\subsubsection{Frame Markers}
 \label{ch:back:borders}
 
 
+%TODO
 
-\section{Computer Vision Software \& Techniques}
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=50mm]{images/frameMarker.png}
+\caption{Vuforia Frame Marker fiducial example \cite{vuforia}}
+\label{im:frameMarker}
+\end{figure}
+
+\clearpage
+
+%\cite{vuforia}
+
+
+
+\section{Computer Vision Software}
+
+
+\subsection{Selecting a library}
+
+
 
 \begin{figure}[ht!]
 \centering
@@ -73,16 +157,32 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 \label{im:cvlogo}
 \end{figure}
 
+\subsection{Techniques}
+
+
+%select OpenCV; discuss useful features it has with footnotes
+% colour thresholding
+% contour heirarchy
+% adaptive thresholding
+
+%\cite{matlab}
+%\cite{opencvBench}
+%%\cite{opencvBook}
+
+
 
 \section{Open Source Software}
 
+
+
+%TODO
 
 
 
 % =====================================================================
 
 \chapter{BlocSim Specification}
-\ref{ch:spec}
+\label{ch:spec}
 
 
 
@@ -104,6 +204,10 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 
 
 \subsection{Fiducial Design}
+
+
+%TODO
+
 
 \begin{figure}[ht!]
 \centering
@@ -133,8 +237,10 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 \subsection{Computer Vision Requirements}
 
 
+%TODO
 
-\newpage
+
+%\newpage
 
 \section{Technology Selection}
 
@@ -161,10 +267,17 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 	\label{tab:techSelect}
 \end{table} 
 
+
+%TODO
+
+
+
+%\cite{facebookTornado}
+%\cite{socketioBugs}
 %\footnotemark[11]
 %\footnotemark[12]
 %\footnotemark[13]
-
+%\footnotemark[14]
 \footnotetext[1]{Python - \url{https://www.python.org/}}
 \footnotetext[2]{OpenCV - \url{http://opencv.org/}} 
 \footnotetext[3]{Tornado - \url{http://www.tornadoweb.org/en/stable/}}
@@ -178,16 +291,27 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 \footnotetext[11]{Flask - \url{http://flask.pocoo.org/}}
 \footnotetext[12]{Socket.io - \url{http://socket.io/}}
 \footnotetext[13]{Redis - \url{http://redis.io/}}
-
+\footnotetext[14]{Meteor - \url{https://www.meteor.com/}}
 
 \clearpage
+
+% =====================================================================
+
+\section{Open-Source Delivery}
+
+The BlocSim source, release build, issue tracking and documentation are to be publicly hosted online at GitHub \cite{blocsim}\cite{github}. Having a centralised, publicly visible location for these services and material provides both exposure for the project and valuable support infrastructure for any future work on the project (by its original author or others) which may take place. 
+
+Additionally, every effort has been made to select only free and open source libraries and dependencies, making the project more accessible to developers.
+
+BlocSim is to be licensed under GPLv2 \cite{gplv2}, a permissive license which guarantees freedom to share and change the software, appropriate for encouraging and facilitating open source development.
+\\
 
 
 % =====================================================================
 
 \chapter{Implementation}
 
-
+%TODO
 
 \begin{figure}[ht!]
 \centering
@@ -220,6 +344,8 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 
 \section{Features \& Usage}
 
+%TODO
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=150mm]{images/screenshot_cv1.png}
@@ -249,8 +375,6 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 \end{figure}
 
 \clearpage
-
-
 
 
 
@@ -336,22 +460,24 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=150mm]{images/BlocsimBD3.jpg}
+\includegraphics[width=170mm]{images/BlocsimBD3.jpg}
 \caption{BlocSim's Architecture}
 \label{im:BlocsimBD3}
 \end{figure}
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=150mm]{images/BlocsimBD4.jpg}
+\includegraphics[width=170mm]{images/BlocsimBD4.jpg}
 \caption{Process flow for video stream}
 \label{im:BlocsimBD4}
 \end{figure}
 
+%TODO
+
 %\newpage
 \clearpage
 
-The Python webserver's functionality is split into several threads, including:
+\noindent The Python webserver's functionality is split into several threads, including:
 
 \begin{description}
 	\item[Main Thread] - Executes the Tornado webserver IO Loop. Includes handling websockets and Remote Procedure Calls
@@ -362,18 +488,13 @@ The Python webserver's functionality is split into several threads, including:
 	\item[Timer Thread] - Limits the webcam capture frame rate
 \end{description}
 
-These threads communicate via a series of event signallers and shared resources, such as the keystore database and image processing output.
+\noindent These threads communicate via a series of event signallers and shared resources, such as the keystore database and image processing output.
 
 
 
-% =====================================================================
+\vspace{1 cm}
 
-\section{Open-Source Delivery}
-
-The BlocSim source, release build, issue tracking and documentation are publicly hosted online at GitHub \cite{blocsim}\cite{github}. Having a centralised, publicly visible location for these services and material provides both exposure for the project and valuable support infrastructure for any future work on the project (by its original author or others) which may take place. BlocSim is licensed under GPLv2 \cite{gplv2}, a permissive license which guarantees freedom to share and change the software, appropriate for encouraging and facilitating open source development.
-\\
-
-For more information, see the resources outlined in Appendix \ref{ch:appendix}.
+\noindent For more information, see the resources outlined in Appendix \ref{ch:appendix}.
 
 
 
@@ -381,6 +502,7 @@ For more information, see the resources outlined in Appendix \ref{ch:appendix}.
 
 \chapter{Project Evaluation}
 
+%TODO
 
 
 \section{Completion}
@@ -413,6 +535,7 @@ For more information, see the resources outlined in Appendix \ref{ch:appendix}.
 
 \section{Performance}
 
+%TODO
 
 
 \subsection{Speed \& Resource Usage}
@@ -443,12 +566,15 @@ For more information, see the resources outlined in Appendix \ref{ch:appendix}.
 \label{im:frame4glow}
 \end{figure}
 
+%TODO
 
 \section{Design Decisions Review}
 
-
+%TODO
 
 \section{Future Improvement}
+
+%TODO
 
 
 
@@ -459,7 +585,7 @@ For more information, see the resources outlined in Appendix \ref{ch:appendix}.
 The creation of the BlocSim prototype according to speicifications laid out in Chapter \ref{ch:spec} was generally a success. Recognition of the whiteboard block diagrams runs in real time and performs well under controlled lighting conditions, however requires some initial manual tuning according to lighting conditions and camera. Control of the system and access to the block diagram model is convenient and user friendly through both \gls{gui} and external software, although the calibration controls should be expanded and synchronisation of controls between multiple web clients completed. The planned adapter for demonstrating conversion of generic block diagram models to digital logic gate models is yet to be implemented.
 \\
 
-Work on BlocSim so far has demonstrated that computer vision based primarily on the colour of whiteboard marker features is not as reliable as is desired. Even with a high resolution image, variations in actual marker colour, thin or lightly drawn features and strong reflections from background light sources can be significant, in some cases causing the algorithm to miss image features and build an incomplete block diagram model. This issue should be circumvented in future work by encoding the block identites in black-and-white frame marker fiducials, which are pre-printed onto non-reflective magnetic cards (see Section \ref{ch:back:borders}).
+Work on BlocSim so far has demonstrated that computer vision based primarily on the colour of whiteboard marker features is not as reliable as is desired. Even with a high resolution image, variations in actual marker colour, thin or lightly drawn features and strong reflections from background light sources can be significant, in some cases causing the algorithm to miss image features and build an incomplete block diagram model. This issue can be partially resolved in future work by encoding the block type in black-and-white frame marker fiducials, and pre-printing them onto non-reflective magnetic cards (see Section \ref{ch:back:borders}).
 \\
 
 Overall, the current prototype is a useful but small first step towards bridging the gap between block diagram sketches and simulation software. BlocSim will require extensive future work as an open source project before it can truly be a solution to this problem.

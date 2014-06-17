@@ -18,12 +18,11 @@
 \usepackage{verbatim}
 \usepackage{amsfonts}
 \usepackage{array}
-\usepackage[acronym,nomain]{glossaries}
+\usepackage[acronym,nomain,nonumberlist]{glossaries}
 \usepackage{listings}
 \usepackage{setspace}
 \usepackage[linewidth=1pt]{mdframed}
 \usepackage{sverb}
-
 \usepackage{bookmark}
 \bookmarksetup{
   numbered, 
@@ -31,6 +30,7 @@
 }
 
 \makeglossaries
+\renewcommand*{\glossaryentrynumbers}[1]{}
 
 \newcommand{\tick}{\checkmark}
 \newcommand{\gtick}{\color{ForestGreen} \tick }
@@ -42,6 +42,8 @@
 \newcommand{\rowstyle}[1]{\gdef\currentrowstyle{#1}%
   #1\ignorespaces
 }
+
+\setcounter{secnumdepth}{3}
 
 \begin{document}
 
