@@ -13,7 +13,7 @@ Sketching block diagrams (or block diagram equivalent designs) on a static surfa
 Today there are plenty of available systems capable of handwriting recognition for various engineering designs. However, these are generally specialised for taking input from a stylus or touchscreen, and/or recognition of symbols and designs for a specific engineering domain.
 \\
 
-\textit{BlocSim}\footnote{BlocSim - http://www.github.com/CPonty/BlocSim} is a proof-of-concept for a sketch-to-simulation solution capable of servicing a broad range of engineering domains. Its role is to visually capture a sketch of a block-diagram-like model and update external simulation tools with an adapted model in real-time. 
+\textit{BlocSim}\footnote{BlocSim - http://www.github.com/CPonty/BlocSim} is a proof-of-concept for a sketch-to-simulation solution capable of servicing a broad range of engineering domains. Its role is to visually capture a sketch of a block-diagram-like model and update external simulation tools with an adapted model in real-time. For the sake of simplicity, capturing textual annotations adjacent to blocks is outside its scope.
 \\
 
 An open-source prototype of BlocSim shall be built which achieves this functionality for simple whiteboard sketches. BlocSim will be built with extensibility in mind, as expanding its ability to interface with third-party software will require updates over time.
@@ -26,8 +26,6 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 % =====================================================================
 
 \chapter{Background}
-
-
 
 \section{Block Diagrams in Engineering}
 
@@ -51,6 +49,9 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 
 \subsection{LTSpice}
 
+%TODO
+
+LTSpice, and spice 
 
 
 \begin{figure}[ht!]
@@ -127,8 +128,37 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 \subsubsection{Frame Markers}
 \label{ch:back:borders}
 
+As an alternative to symbol, text or traditional barcode recognition, a special type of fiducial can be constructed called a frame marker. The concept is that the unique ID of the marker is encoded in a pattern along its border, rather than in the central contents area. This means that the majority of the marker surface is not required during image recongnition, allowing a user to place any image, text, symbolic or other content here as they see fit without affecting the recognition of the marker.
 
-%TODO
+An extremely simple version of this concept could involve placing a small dot in the corner of the marker which corresponds to its unique ID. This gives 4 possible marker types. A more comprehensive alternative could encode the unique ID in a continuous, barcode-like pattern along the inner border of the marker. This could allow for a range of hundreds of unique IDs, only limited by the resolution of the marker in the image.
+
+Vuforia\footnote{Vuforia - \url{https://www.vuforia.com}}, a computer vision platform for augmented reality (\gls{ar}) on mobile devices, implements frame marker recognition. For the marker type in Figure \ref{im:frameMarker}, a range of 512 unique IDs are available, with relatively low processing power required for recognition. However, verbatim use of this implementation does not suit BlocSim - their markers require a clearance area around the frame border free of graphical features, while block diagram sketches involve connecting blocks via touching lines.
+
+\cite{vuforia}
+
+
+Due to the relatively low processing power required to decode the marker ID, all 512 frame markers can be used in an application.
+
+The size of the marker depends on the application environment. In our recommended scenarios of near field usage environments, the real marker can have a typical size of 1 to 4 inches or 3 to10 cm. We refer to the actual size as the measured size of the printed target. The small size allows using markers as game pieces or playing cards in a game or 3D animated experience.
+
+
+Area around the marker’s black frame is:
+
+Free of graphical elements
+Typically twice as wide as the black frame
+Bright to provide good contrast to the frame
+Black frame is used to recognize the marker in the environment as seen by the camera during run-time
+
+ID area inside the frame encodes the ID of the marker in a binary pattern
+
+Design area (orange) is free to carry any design to make the frame marker visually appealing and potentially contain additional information for the end user
+
+Vuforia SDK does not evaluate this marker area
+
+
+
+Overall, this is a highly promising method for encoding block identities.
+%, allowing a very large range of types and increasing reliability by removing the need for colour detection.
 
 \begin{figure}[ht!]
 \centering
@@ -146,7 +176,7 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 
 \section{Open Source Software}
 
-A key benefit of writing free and open source software (FOSS) comes from creating opportunity for others to contribute to a project. However, this requires the developers to create an environment suitable for collaboration, which involves more than simply writing nicely formatted \& documented code.
+A key benefit of writing free and open source software (\gls{foss}) comes from creating opportunity for others to contribute to a project. However, this requires the developers to create an environment suitable for collaboration, which involves more than simply writing nicely formatted \& documented code.
 \\
 
 \subsection{Contributors}
@@ -188,7 +218,7 @@ A large number of free, off-the-shelf image processing and computer vision libra
 \\
 
 In terms of performance, OpenCV has a strong advantage over most freely available frameworks.
-Its stated purpose is to "provide a common infrastructure for computer vision applications and to accelerate the use of machine perception" \cite{opencv}. OpenCV began its life as a project in Intel's labs, which resulted in Intel's Integrated Performance Primitives (IPP), which include assembly routines for computer vision optimised by hand \cite{opencvBook}. While OpenCV APIs are available for several languages including Java and python, the core functionality is written in compiled, optimised C++. For these reasons, OpenCV generally outperforms other freely available open source libraries \cite{opencvBench}.
+Its stated purpose is to "provide a common infrastructure for computer vision applications and to accelerate the use of machine perception" \cite{opencv}. OpenCV is a proven product, with an active community of over 47,000 users and extensive use among well-established software companies. OpenCV began its life as a project in Intel's labs, resulting in Intel's Integrated Performance Primitives (IPP), which include assembly routines for computer vision optimised by hand \cite{opencvBook}. While OpenCV APIs are available for several languages including Java and python, the core functionality is written in compiled, optimised C++. For these reasons, OpenCV generally outperforms other freely available open source libraries \cite{opencvBench}.
 \\
 
 Working in Matlab offers different advantages. Matlab's Computer Vision System toolbox actually integrates the OpenCV library into Matlab, allowing access to Matlab's convenient visualisation and data processing capabilities, higher levels of abstraction and an extended image processing library \cite{matlabCV}. However, working with Matlab would present several problems:
@@ -196,7 +226,7 @@ Working in Matlab offers different advantages. Matlab's Computer Vision System t
 \begin{itemize}
 \item Matlab is commercial software with considerable purchase cost, which would erode the project's open-source value
 \item As a large software package running in a Java virtual machine, Matlab's performance does not match that of utilising OpenCV directly
-\item Writing features of BlocSim outside of computer vision will be more convenient in a standalone program than executing in a data analysis tool
+\item Writing features of BlocSim outside of computer vision will be more convenient in a standalone program than executing in a data analysis tool,
 \end{itemize}
 
 \begin{figure}[ht!]
