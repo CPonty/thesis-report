@@ -142,13 +142,62 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 %\cite{vuforia}
 
 
+% =====================================================================
+
+\section{Open Source Software}
+
+A key benefit of writing free and open source software (FOSS) comes from creating opportunity for others to contribute to a project. However, this requires the developers to create an environment suitable for collaboration, which involves more than simply writing nicely formatted \& documented code.
+\\
+
+\subsection{Contributors}
+
+Contributions to an active open-source project come from many contributor roles. Aside from \textit{developers} writing and documenting code, there should be \textit{testers} actively using and testing the project, people providing \textit{user support} by answering questions (e.g. on a forum), \textit{bug reporters} and regular \textit{users}. Any one contributor can fill several roles. A final and important role are the project's \textit{observers}, who may be considering becoming contributors.
+
+Clearly all of these roles are important ones. Therefore, it is beneficial to setup infrastructure to support all of them. This can include, but is not limited to:
+\begin{description}
+	\item[Ease of Access] - providing a convenient means for users to acquire \& run the software
+	\item[Project Monitoring] - keeping all roles informed with the status of the project, such as the roles of developers, changesets, project direction
+	\item[User Support] - providing a means for users to learn about the project, seek help with issues and contact developers
+	\item[Issue Tracking] - providing a means for users and developers to create and monitor bug reports or suggestions for new features. This functionality is at the core of open source development
+	\item[Centralised source control] - ensure developers have a central 'source of truth', with the ability to effectively manage distributed development and merge work
+\end{description}
+
+Taking steps to support contributors is a key to success for all open source projects. \cite{openSource2}. 
+
+\textit{GitHub}\footnote{GitHub - \url{https://www.github.com/}} is a highly valuable and widely used online space for open source software projects. It provides a \textit{Git}\footnote{Git - \url{http://www.git-scm.com/}} version control system, facilitating branches of development and the ability to rollback/merge changes, a wiki page for documentation, release management and an issue tracker.
+
+\vspace{0.5 cm}
+
+\subsection{Software Evaluation \& Selection}
+
+Selection of existing software, libraries and tools for use in a project must be carefully considered. Often there exists a wide range of possible off-the-shelf components which can fill a given requirement, and each must be evaluated on its merits to the project. Evaluation can involve, but is not limited to, researching views and opinions from the open source community and reading source code and documentation. Selection criteria are broad, and may include source code quality, documentation quality and completeness, maturity, stability, cross-platform support, ease of use \& maintenance, and importantly the permissiveness of its licensing. \cite{openSource}
+\\
+
+Given that BlocSim's key functionality requires converting block models to be compatible with a variety of third party software, it will require maintenance and ongoing work over time. A FOSS model will serve the project well.
+
+% =====================================================================
+
 
 \section{Computer Vision Software}
 
+As BlocSim's core functionality involves interpreting hand-drawn sketches, it will require the ability to perform image processing on a captured sketch.
 
-\subsection{Selecting a library}
+\subsection{Computer Vision Frameworks}
 
+A large number of free, off-the-shelf image processing and computer vision libraries are available to this project. In order to minimise time required to implement the BlocSim prototype, evaulation of options focuses on frameworks I have previous experience with. Two such frameworks were evaluated for this project: Mathworks' \textit{Computer Vision System toolbox} \cite{matlab} and the OpenCV Foundation's \textit{Open Source Computer Vision Library} (OpenCV) \cite{opencv}.
+\\
 
+In terms of performance, OpenCV has a strong advantage over most freely available frameworks.
+Its stated purpose is to "provide a common infrastructure for computer vision applications and to accelerate the use of machine perception" \cite{opencv}. OpenCV began its life as a project in Intel's labs, which resulted in Intel's Integrated Performance Primitives (IPP), which include assembly routines for computer vision optimised by hand \cite{opencvBook}. While OpenCV APIs are available for several languages including Java and python, the core functionality is written in compiled, optimised C++. For these reasons, OpenCV generally outperforms other freely available open source libraries \cite{opencvBench}.
+\\
+
+Working in Matlab offers different advantages. Matlab's Computer Vision System toolbox actually integrates the OpenCV library into Matlab, allowing access to Matlab's convenient visualisation and data processing capabilities, higher levels of abstraction and an extended image processing library \cite{matlabCV}. However, working with Matlab would present several problems:
+
+\begin{itemize}
+\item Matlab is commercial software with considerable purchase cost, which would erode the project's open-source value
+\item As a large software package running in a Java virtual machine, Matlab's performance does not match that of utilising OpenCV directly
+\item Writing features of BlocSim outside of computer vision will be more convenient in a standalone program than executing in a data analysis tool
+\end{itemize}
 
 \begin{figure}[ht!]
 \centering
@@ -168,14 +217,6 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 %\cite{matlab}
 %\cite{opencvBench}
 %%\cite{opencvBook}
-
-
-
-\section{Open Source Software}
-
-
-
-%TODO
 
 
 
@@ -244,7 +285,6 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 
 \section{Technology Selection}
 
-
 \begin{table}[ht!]
 	\center
 	\begin{tabular}{$r^l} %$
@@ -266,6 +306,7 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 	\caption{Selection of technologies for the BlocSim prototype}
 	\label{tab:techSelect}
 \end{table} 
+
 
 
 %TODO
