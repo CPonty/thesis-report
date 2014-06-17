@@ -7,16 +7,16 @@
 A block diagram is a model of a system in which components or functions are represented by blocks, and relationships or connections between them by connecting lines. Block diagram models of engineering systems are heavily used by designers and educators in many fields, including hardware design, electronics design, software engineering, control systems and others.
 \\
 
-Sketching block diagrams (or block diagram equivalent designs) on a static surface (such as paper or a whiteboard) is a common scenario for engineering students, educators and designers. Often the system being designed is subsequently analysed and simulated using a computer aided tool, requiring the sketched design to be manually reconstructed on a computer. It should be possible to reduce or eliminate this delay between sketch and simulation and thus increase productivity for system designers using an automated, computer aided process.
+Sketching block diagrams (or block diagram equivalent designs) on a static surface (such as paper or a whiteboard) is a common part of the design process for engineering students, educators and professionals. Often the system being designed is subsequently analysed and simulated using a computer aided tool, requiring the sketched design to be manually reconstructed on a computer. It should be possible to reduce or eliminate this delay between sketch and simulation and thus increase productivity for system designers using an automated, computer aided process.
 \\
 
-Today there are plenty of available systems capable of handwriting recognition for various engineering designs. However, these are generally specialised towards taking input from a stylus/touchscreen and/or recognising symbols and designs from a specific engineering domain.
+Today there are plenty of available systems capable of handwriting recognition for various engineering designs. However, these are generally specialised for taking input from a stylus or touchscreen, and/or recognition of symbols and designs for a specific engineering domain.
 \\
 
-\textit{BlocSim} is a proof-of-concept for a sketch simulation solution capable of servicing a broad range of engineering domains. Its role is to visually capture a sketch of a block-diagram-like model and update external simulation tools with an adapted model in real-time. 
+\textit{BlocSim}\footnote{BlocSim - http://www.github.com/CPonty/BlocSim} is a proof-of-concept for a sketch-to-simulation solution capable of servicing a broad range of engineering domains. Its role is to visually capture a sketch of a block-diagram-like model and update external simulation tools with an adapted model in real-time. 
 \\
 
-An open-source prototype of BlocSim shall be built which achieves this functionality for simple whiteboard sketches. BlocSim will be built with extensibility in mind, as retaining/expanding its ability to interface with third-party software will require updates over time.
+An open-source prototype of BlocSim shall be built which achieves this functionality for simple whiteboard sketches. BlocSim will be built with extensibility in mind, as expanding its ability to interface with third-party software will require updates over time.
 
 
 \begin{comment}
@@ -39,7 +39,7 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 \hspace{0.5 cm}
 \includegraphics[width=50mm]{images/fbd.jpg} 
 \centering
-\caption{Block diagram (top left), circuit diagram (top right) \cite{engineeronadisk}, control system block diagram (bottom left) \cite{engineeronadisk}, function block diagram (bottom right) \cite{wikicommonsFbd}}
+\caption{Block diagram (top left) \cite{wiringDiagrams}, circuit diagram (top right) \cite{engineeronadisk}, control system block diagram (bottom left) \cite{engineeronadisk}, function block diagram (bottom right) \cite{wikicommonsFbd}}
 \label{im:blockExample}
 \end{figure}
 
@@ -48,6 +48,19 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 
 
 \section{Block Diagram Sketch Capture}
+
+
+
+\subsection{Sketch Design Recognition \& Simulation}
+
+
+
+\subsection{}
+
+
+
+\subsection{Frame Markers}
+\label{ch:back:borders}
 
 
 
@@ -69,6 +82,7 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 % =====================================================================
 
 \chapter{BlocSim Specification}
+\ref{ch:spec}
 
 
 
@@ -136,7 +150,7 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 		Computer Vision Package & \textbf{OpenCV} \footnotemark[2] \\
 		Human Interface & Web control panel \\
 		Web Framework & \textbf{Tornado} \footnotemark[3] \\
-		Communication/Storage Format & \textbf{JSON} \footnotemark[4] \\
+		Communication/Storage Format & \textbf{\gls{json}} \footnotemark[4] \\
 		Remote Access & \textbf{JSON-RPC} \footnotemark[5] protocol via \textbf{TornadoRPC} \footnotemark[6] \\
 		Client-Server Communication & \textbf{Websockets} \footnotemark[7], using \textbf{SockJS} \footnotemark[8] \& \textbf{SockJS-Tornado} \footnotemark[9] \\
 		Block Diagram Publishing & \textbf{Mosquitto} \footnotemark[10] Publish/Subscribe Broker \\
@@ -442,11 +456,15 @@ For more information, see the resources outlined in Appendix \ref{ch:appendix}.
 
 \chapter{Conclusion}
 
+The creation of the BlocSim prototype according to speicifications laid out in Chapter \ref{ch:spec} was generally a success. Recognition of the whiteboard block diagrams runs in real time and performs well under controlled lighting conditions, however requires some initial manual tuning according to lighting conditions and camera. Control of the system and access to the block diagram model is convenient and user friendly through both \gls{gui} and external software, although the calibration controls should be expanded and synchronisation of controls between multiple web clients completed. The planned adapter for demonstrating conversion of generic block diagram models to digital logic gate models is yet to be implemented.
+\\
 
+Work on BlocSim so far has demonstrated that computer vision based primarily on the colour of whiteboard marker features is not as reliable as is desired. Even with a high resolution image, variations in actual marker colour, thin or lightly drawn features and strong reflections from background light sources can be significant, in some cases causing the algorithm to miss image features and build an incomplete block diagram model. This issue should be circumvented in future work by encoding the block identites in black-and-white frame marker fiducials, which are pre-printed onto non-reflective magnetic cards (see Section \ref{ch:back:borders}).
+\\
+
+Overall, the current prototype is a useful but small first step towards bridging the gap between block diagram sketches and simulation software. BlocSim will require extensive future work as an open source project before it can truly be a solution to this problem.
 
 % =====================================================================
-
-
 
 \begin{comment}
 
