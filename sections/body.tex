@@ -7,13 +7,13 @@
 A block diagram is a model of a system in which components or functions are represented by blocks, and relationships or connections between them by connecting lines. Block diagram models of engineering systems are heavily used by designers and educators in many fields, including hardware design, electronics design, software engineering, control systems and others.
 \\
 
-Sketching block diagrams (or block diagram equivalent designs) on a static surface (such as paper or a whiteboard) is a common part of the design process for engineering students, educators and professionals. Often the system being designed is subsequently analysed and simulated using a computer aided tool, requiring the sketched design to be manually reconstructed on a computer. It should be possible to reduce or eliminate this delay between sketch and simulation and thus increase productivity for system designers using an automated, computer aided process.
+Sketching block diagrams (or block diagram equivalent designs) on a collaborative surface (such as a whiteboard) is a common part of the design process for engineering students, educators and professionals. Often the system being designed is subsequently analysed and simulated using a computer aided tool, requiring the sketched design to be manually reconstructed on a computer. It should be possible to reduce or eliminate this delay between sketch and simulation and thus increase productivity for system designers using an automated, computer aided process.
 \\
 
 Today there are plenty of available systems capable of handwriting recognition for various engineering designs. However, these are generally specialised for taking input from a stylus or touchscreen, and/or recognition of symbols and designs for a specific engineering domain.
 \\
 
-\textit{BlocSim}\footnote{BlocSim - http://www.github.com/CPonty/BlocSim} is a proof-of-concept for a sketch-to-simulation solution capable of servicing a broad range of engineering domains. Its role is to visually capture a sketch of a block-diagram-like model and update external simulation tools with an adapted model in real-time. For the sake of simplicity, capturing textual annotations adjacent to blocks is outside its scope.
+\textit{BlocSim}\footnote{BlocSim - http://www.github.com/CPonty/BlocSim} is a proof-of-concept for a sketch-to-simulation solution capable of servicing a broad range of engineering domains. Its role is to visually capture a sketch of a block-diagram-like model from a whiteboard, and update external simulation tools with an adapted model in real-time. For the sake of simplicity, capturing textual annotations adjacent to blocks is outside its scope.
 \\
 
 An open-source prototype of BlocSim shall be built which achieves this functionality for simple whiteboard sketches. BlocSim will be built with extensibility in mind, as expanding its ability to interface with third-party software will require updates over time.
@@ -30,11 +30,13 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 \section{Block Diagrams in Engineering}
 
 %\subsection{Block Diagram Equivalent Drawings}
-%TODO
 
+Across various engineering domains, block diagram and block-diagram-like models are capable of describing a variety of systems in sufficient detail to run a simulation directly from the diagram. In some cases, the block diagram model is almost equivalent to a schematic diagram (see digital logic gates). In others, information required is added as annotations to the component of the diagram (such as component values in electrical schematics). As such, a control system block diagram could be adapted for a simulator and executed immediately; an electrical circuit schematic treated as a block diagram would have key information missing, although delivering the circuit layout to simulation instantly is still a useful and desirable function. Similar comparisons can be made in many other domains where blocks are substituted for symbols. In short, basic schematic and other technical drawings can often be modelled as a generic block diagram, provided the components of the schematic can be recognized. Thinking of block diagrams in this broader sense will broaden the usefulness of BlocSim.
+\\
 
+%Recognition of this broad set of 'block diagram' components presents a challenge.
 
-Similar arguments can be made for digital logic gate schematics and many other domains where blocks are substituted for symbols. Basic schematic and other technical drawings specific to many engineering domains can be modelled by a generic block diagram.
+Consider textual annotations, such as that of a function block diagram or AC circuit, to be outside of the scope of BlocSim.
 
 \begin{figure}[ht!]
 \includegraphics[width=70mm]{images/blockDiagram.png}
@@ -49,6 +51,7 @@ Similar arguments can be made for digital logic gate schematics and many other d
 \end{figure}
 
 %\clearpage
+\newpage
 
 \subsection{Simulation}
 
@@ -87,11 +90,22 @@ Similar arguments can be made for other tools and other engineering domains.
 
 \section{Block Diagram Sketch Capture}
 
-%TODO
+Recognition of the broad set of 'block diagram' components BlocSim could potentially need to interpret presents a challenge. In some domains, these blocks are simply boxes containing text. Optical Character Recognition (\gls{ocr}) is a well-established field in computer vision, and this does not present a challenge on its own. However, in some cases (such as control system block diagrams), the blocks contain mathematical expressions, presenting a problematically large set of sometimes ambiguous and complex symbols to recognise, especially when drawn by hand, on a whiteboard, in a compressed space. In other cases, such as electrical circuits, the block components are represented by symbols, and the containing border is missing. Again, there is a large symbol set, potentially multiple symbol sets given the range of engineering domains BlocSim may eventually support, and hand-drawn whiteboard sketches of symbols are imprecise at best. Implementing recognition algorithms for this multitude of block diagram types and domains would be extremely challenging.
+\\
 
-\subsection{Engineering Sketch Recognition \& Simulation}
+%\subsection{Engineering Sketch Recognition \& Simulation}
+%\cite{sketchInterpSoftware}
 
-%TODO
+\subsection{Hand-drawn Sketch Recognition}
+
+Let us step back to consider a best-case scenario, and just one engineering domain. 
+
+Paper sketches  of circuits are a simpler case to consider than whiteboards, as pens are more precise than whiteboard markers. It is worth noting how successful existing attempts to recognise and interpret electrical sketches on paper have been.
+B. Edwards of QUT, Australia has achieved “node recognition accuracy of 82\% and a component recognition accuracy of 86\%” with a hand-drawn circuit diagram analyser which takes input from a scanner \cite{handDrawnCircuits}.
+
+The vast majority of available literature regarding technical sketches on \textit{interactive} surfaces focuses on a surface sized for an individual, rather than a large collaborative surface such as a whiteboard. Users might input sketches through a light pen, stylus and touch-sensitive screen, or other methods \cite{sketchInterpSoftware}, and the software responds as they draw. 
+
+Quickdiagram is a well-developed example of this. It is capable of recognising partially-drawn symbols and finishing (“beautifying”) them for the user as they draw with “robust and accurate” results, and either running nodal analysis (for resistive circuits) or delegating simulation to PSpice (for more complex circuits) \cite{quickDiagram}.
 
 \begin{figure}[ht!]
 \centering
@@ -102,17 +116,26 @@ Similar arguments can be made for other tools and other engineering domains.
 
 \clearpage
 
-\subsubsection{QuickDiagram}
+%\cite{quickDiagram}
+%\cite{quickDiagramDemo}
 
-%TODO
+%\subsection{Interactive Whiteboards}
+\subsection{Interactive Surfaces}
 
-\subsection{Electronic Whiteboards}
+It should be noted that interactive surfaces, such as electronic whiteboards and large touchscreen panels exist. Interactive whiteboards are large, touch sensitive panels paired with a digital projector and computer, displaying information and providing control through direct touch or a special pen \cite{interactiveWhiteboards}. These may be an ideal surface for the purposes of BlocSim. They can be utilised in a similar fashion to standard whiteboards, yet are capable of loading and saving their state and interacting directly with a computer. Touchscreens offer similar capability to an interactive whiteboard, though the size/surface area is inherently limited.
+\\
 
-%TODO
+Despite these convenient features, a large, interactive sketching surface will not be used for the BlocSim prototype, as a whiteboard-sized system is prohibitively expensive. For example, in November 2013, Panasonic’s mid-range electronic whiteboards were retailing for approximately \$2,500 AUD \cite{panasonic}. Touchscreens large enough to replace the role of whiteboards are similarly expensive, with a 47” LG screen retailing for approximately \$3,000 AUD \cite{ledLcd}.
+
+%\cite{interactiveWhiteboards}
+%\cite{interactiveWhiteboards2}
+%\cite{panasonic}
+%\cite{ledLcd}
 
 \subsection{Block Component Identification}
 
-%TODO
+Given the material covered so far, it is apparent that in order to make BlocSim viable an alternate approach to block recognition will have to be taken. Instead of trying to recognise hand-drawn blocks on a whiteboard, an alternate approach would be to print a set of blocks onto magnetic cards for each relevant domain, and place image features, or \textit{fiducials}, onto the card to aid in its detection and identification.
+\\
 
 %introduce problem fiduciary markers
 %markers
@@ -121,10 +144,17 @@ Similar arguments can be made for other tools and other engineering domains.
 	%don't want to use OCR for many cases - math symbols, domain specific symbols
 %barcodes (1D)
 %QR codes (2D)
+%\cite{fiducial}
+%\cite{fiducialAR}
+%\cite{colorFiducial}
 
 \subsubsection{Fiduciary Markers}
 
-%TODO
+Object recognition, or detection/identification of features in an image, is one of the major problems to be solved when performing computer vision tasks. Fiduciary markers are symbols know to the \gls{cv} algorithm, designed to be located and identified automatically in an image \cite{artag}. For BlocSim's purposes, detecting fiducials would be more reliable than recognition of abritrary sketched shapes.
+\\
+
+ARToolKit2 is a widely used Augmented Reality (\gls{ar}) system considered “state-of-the-art” to researchers and developers \cite{artoolkit}. Its capabilities include recognition of custom fiducials. ARToolKit2 applies edge detection, contouring and thresholding to analyse objects in the image. In the absence of uncontrolled lighting and marker occlusion, it is capable of consistent, near-100\% detection rates for symbols less than 100 pixels wide \cite{bestFiducial}. Users can create their own markers using arbirary symbols and train a classifier to facilitate their recognition. If BlocSim were to use a system such as this, blocks represented as symbols would treat the entire block as a fiducial, and text blocks would perform OCR.
+\\
 
 \begin{figure}[ht!]
 \centering
@@ -136,28 +166,32 @@ Similar arguments can be made for other tools and other engineering domains.
 
 \clearpage
 
-\subsubsection{OCR}
+Instead of using the block as a fiducial itself, it is possible to place smaller fiducials within the block. Printed circuit boards, for example, utilise fiduciary marks as pointers for machinery during the production process (see Figure \ref{im:fiducialPic} below). Simple fiduciary markers can encode information based on their position, separation distances (as used in PCBs) or their colour \cite{colorFiducial}.
 
-%TODO
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=50mm]{images/fiducialPic.jpg}
+\caption{Example of fiducials present on a \gls{pcb} \cite{fiducialPic}}
+\label{im:fiducialPic}
+\end{figure}
 
 \subsubsection{Barcodes}
 
-%TODO
+Another potential method of encoding block identity is with a barcode. Barcodes are information dense and space efficient. A one-dimensional barcode could be run as a strip inside a block in a fixed position, or a 2D barcode (such as QR Code) placed in a corner. Traditional barcodes are not a desirable solution for BlocSim, as their rectangular shape would take up space inside the block which may be needed in some cases. For example, a block component might consist of a symbol with connector lines joining to all four sides of the block.
 
-%\cite{sketchInterpSoftware}
-%\cite{quickDiagram}
-%\cite{quickDiagramDemo}
-%\cite{interactiveWhiteboards}
-%\cite{interactiveWhiteboards2}
-%\cite{panasonic}
-%\cite{ledLcd}
-%\cite{handDrawnCircuits}
+
+%\cite{bestFiducial}
+%\cite{fiducialAR}
+% G. Schall et al
+%\cite{colorFiducial}
+% H. Bagherinia et al
+
+%------------------------------
 %\cite{artag}
 %\cite{bestFiducial}
 %\cite{artoolkit}
 %\cite{ltspice}
 
-%\cite{fiducial}
 %\cite{fiducialAR}
 % G. Schall et al
 %\cite{colorFiducial}
@@ -182,7 +216,7 @@ An extremely simple version of this concept could involve placing a small dot in
 
 Vuforia\footnote{Vuforia - \url{https://www.vuforia.com}}, a computer vision platform for augmented reality (\gls{ar}) on mobile devices, implements frame marker recognition. For the marker type in Figure \ref{im:frameMarker}, a range of 512 unique IDs are available, with relatively low processing power required for recognition \cite{vuforia}. However, verbatim use of this implementation does not suit BlocSim - Vuforia's markers require a clearance area around the frame border free of graphical features, while in a block diagram sketch the connector lines will violate this space.
 
-Overall, this is a highly promising method for encoding block identities.
+If BlocSim were to make use of it, symbolic blocks and text blocks with fixed content would be encoded entirely using the frame; text blocks with dynamic content would be identified by their frame and parsed using OCR.
 %, allowing a very large range of types and increasing reliability by removing the need for colour detection.
 
 \begin{figure}[ht!]
@@ -280,8 +314,8 @@ Working in Matlab offers different advantages. Matlab's Computer Vision System t
 \label{ch:spec}
 
 
-
 \section{Solution Concept}
+
 
 \begin{figure}[ht!]
 \centering
@@ -290,7 +324,10 @@ Working in Matlab offers different advantages. Matlab's Computer Vision System t
 \label{im:BlocsimBD1}
 \end{figure}
 
+%\newpage
 \clearpage
+
+
 
 
 
@@ -745,13 +782,15 @@ On the other hand, the decision to run a completely monolithic server possibly r
 
 \section{Future Improvement}
 
-The current prototype is useful, but only a small first step towards bridging block diagram sketches and simulation software. 
+The current prototype is useful, but only a small first step towards bridging block diagram sketches and simulation software. The full timeline for future improvements is documented on the GitHub wiki pages and issue tracker; a sample of the suggested approach is presented below.
 
 \begin{description}
 	\item[BlocSim 1.0] - The next release of the current prototype. This release should focus on usability. Fix bugs identified so far. Make the codebase more friendly to potential collaborating developers by adding python docstrings, cleaning up messy code and making easy optimisations. Do a basic implementation of UI synchronisation between client browsers.
 	\item[BlocSim 1.1] - This release should focus on computer vision improvements and completing all the features initially nominated for the prototype. Make the block diagram recognition more robust against changes to cameras and lighting conditions, possibly by autobalancing brightness and colour saturation in the image. Write an adapter to transform the published block model into input for a simple third-party logic simulator.
 	\item[ ... ]
 	\item[BlocSim 2.0] - This release should focus on a major rewrite of BlocSim, to discard undesirable features and implement preferred architectures and computer vision methods. Implement the alternate method for identifying block types, as identified in Section \ref{ch:back:borders} (binary encoding along the border). This will facilitate a wider set of block types, which is required for almost all practical engineering domains. Ensure the user is able to rotate these blocks in any direction and maintain correct identification. Finally, split the server architecture into two parts, as suggested in \ref{ch:review:design}. 
+	\item[BlocSim 2.1] - This release should focus on extending BlocSim's capabilities to include Optical Character Recognition (\gls{ocr})
+\end{description}
 
 % =====================================================================
 
