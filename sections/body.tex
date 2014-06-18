@@ -330,7 +330,6 @@ Working in Matlab offers different advantages. Matlab's Computer Vision System t
 
 
 \subsection{Computer Vision Requirements}
-\label{sec:techSelection}
 
 
 %TODO
@@ -339,6 +338,7 @@ Working in Matlab offers different advantages. Matlab's Computer Vision System t
 %\newpage
 
 \section{Technology Selection}
+\label{sec:techSelection}
 
 \begin{table}[ht!]
 	\center
@@ -696,7 +696,7 @@ The creation of the BlocSim prototype according to speicifications laid out in C
 		Surface Capture & \gtick & \\
 		Human interface (Control Panel) & \gtick & full UI synchronisation between multiple clients \\
 		External control interface (RPC) & \gtick & \\
-		Configurable (Keystore, via the above) & \gtick & More \gls{cv} settings should be user configurable \\
+		Configurable (JSON Keystore) & \gtick & More \gls{cv} settings should be user configurable \\
 		Real-time Computer Vision for \newline Block Diagram recognition & \gtick & \\
 		Block Diagram Model output \newline (MQTT Publish/Subscribe) & \gtick & \\
 		\ldots & & \\
@@ -708,12 +708,10 @@ The creation of the BlocSim prototype according to speicifications laid out in C
 	\label{tab:completion}
 \end{table} 
 
-\clearpage
+\newpage
+%\clearpage
 
 \section{Performance}
-
-%TODO
-
 
 \subsection{Speed \& Resource Usage}
 
@@ -721,8 +719,9 @@ The creation of the BlocSim prototype according to speicifications laid out in C
 	\item[Network] - For a 1080p image cropped to approximately 50\% of its width and height, the jpeg frame size after base64 encoding is approximately 60KB. At a nominal frame rate of 5FPS, this gives 2.4mbps bandwidth for video, which is quite manageable on local networks. A blocsim server intended for remote access over the web should be constrained to a lower frame rate using the UI controls.
 	\item[CPU] - This has not been extensively tested. On a MacBook Pro Retina with a 2.4GHz i5 processor, 8GB RAM, and integrated Intel graphics, the server ran at approximately 70\% CPU usage with one client attached (local). This is acceptable for personal use on a modern middle-range computer. 
 	\item[Frame Rate] - At a full 1080p on the above system, BlocSim was able to maintain image processing at the speed-limited 5FPS.
-\begin{description}
+\end{description}
 
+\newpage
 
 \subsection{Computer Vision Reliability}
 
@@ -733,17 +732,26 @@ The creation of the BlocSim prototype according to speicifications laid out in C
 \label{im:frame4glow}
 \end{figure}
 
-%TODO
+Overall, the block design and computer vision techniques employed in the BlocSim prototype are adequate to demonstrate the planned functionality. Colour thresholding limits must be re-tuned if the lighting or marker colour changes dramatically or a camera with significantly different properties to the previous one is used. Reflections from light sources in the room are a persistent issue. These can either be diffused, washing out the colour of features and shifting their hue outside the target colour range, or they can be focused, masking any image features underneath (see figure \ref{im:frame4glow}).
+
+This implementation is not sufficiently robust to rely upon outside of controlled demonstrations. It is recommended that any future work either move away from colour processing or print the block cards onto a non-reflective surface, using non-reflective ink or toner.
 
 \section{Design Decisions Review}
+\label{ch:review:design}
 
-%TODO
+Overall, the technologies selected for the prototype in Section \label{sec:techSelection} have worked well together. The interchangeability of JSON and Python dictionaries made passing data between the server, client, Mosquitto broker, keystore etc. very convenient. OpenCV has been very easy to work with thanks to a strong open source community, with tutorials, examples or other assistance available for each task I undertook with it.
+
+On the other hand, the decision to run a completely monolithic server possibly resulted in a less than convenient architecture for keeping the UIs of multiple remote control panels synchronised. In fact, this feature was not fully implemented. I discovered Meteor\footnote{Meteor - \url{https://www.meteor.com/}}, an open-source Javascript framework running on node.js, after the prototype was nearly complete and changing architectures was impractical. Meteor uses a centralised MongoDB\footnote{MongoDB - \url{http://www.mongodb.org/}} database to store the server state, and automatically updates all the clients when the database is written to. I could have used a Meteor server for the front-end (web control panel), a Python program for the back-end (image processing, publish/subscribe) and a MongoDB database as a synchronisation and data sharing layer between them.
 
 \section{Future Improvement}
 
-%TODO
+The current prototype is useful, but only a small first step towards bridging block diagram sketches and simulation software. 
 
-
+\begin{description}
+	\item[BlocSim 1.0] - The next release of the current prototype. This release should focus on usability. Fix bugs identified so far. Make the codebase more friendly to potential collaborating developers by adding python docstrings, cleaning up messy code and making easy optimisations. Do a basic implementation of UI synchronisation between client browsers.
+	\item[BlocSim 1.1] - This release should focus on computer vision improvements and completing all the features initially nominated for the prototype. Make the block diagram recognition more robust against changes to cameras and lighting conditions, possibly by autobalancing brightness and colour saturation in the image. Write an adapter to transform the published block model into input for a simple third-party logic simulator.
+	\item[ ... ]
+	\item[BlocSim 2.0] - This release should focus on a major rewrite of BlocSim, to discard undesirable features and implement preferred architectures and computer vision methods. Implement the alternate method for identifying block types, as identified in Section \ref{ch:back:borders} (binary encoding along the border). This will facilitate a wider set of block types, which is required for almost all practical engineering domains. Ensure the user is able to rotate these blocks in any direction and maintain correct identification. Finally, split the server architecture into two parts, as suggested in \ref{ch:review:design}. 
 
 % =====================================================================
 
