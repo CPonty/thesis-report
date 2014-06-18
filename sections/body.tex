@@ -29,7 +29,12 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 
 \section{Block Diagrams in Engineering}
 
+%\subsection{Block Diagram Equivalent Drawings}
+%TODO
 
+
+
+Similar arguments can be made for digital logic gate schematics and many other domains where blocks are substituted for symbols. Basic schematic and other technical drawings specific to many engineering domains can be modelled by a generic block diagram.
 
 \begin{figure}[ht!]
 \includegraphics[width=70mm]{images/blockDiagram.png}
@@ -45,14 +50,30 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 
 %\clearpage
 
+\subsection{Simulation}
 
+\subsubsection{Simulink}
 
-\subsection{LTSpice}
+Mathworks' \textit{Simulink toolbox} \cite{simulink} is a powerful tool for block diagram system simulation. It provides a block diagram environment for simulation and design of system models across a variety of domains. It includes a graphical editor, customisable library of blocks, solver tools for modelling and simulation of systems, and the ability to incorporate Matlab algorithms in the model. Simulink is an ideal candidate for integration with BlocSim.
 
-%TODO
+\begin{figure}[ht!]
+\includegraphics[width=75mm]{images/simulink.png} 
+\centering
+\caption{Simulink block diagram model}
+\label{im:simulink}
+\end{figure}
 
-LTSpice, and spice 
+\subsubsection{LTSpice}
 
+LTSpice \cite{ltspice}, a SPICE circuit schematic capture and simulation tool built by Linear Systems, is a typical example of a simulation tool which could take input from a block diagram model. Looking at the simple circuit example in Figure \ref{im:ltspice}, we can see that the schematic consists of components, lines and textual annotations on components. The SPICE netlist\footnote{Netlist - In the context of electronics design, a netlist conveys information about the instances (parts) used, how their pins/ports are connected, and some other attributes.} file representing the schematic is a straightforward sequence of human readable components, wire routes and component properties. Aside from component properties, a general purpose block diagram model including connector geometry contains sufficient information to be translated into an LTSpice circuit schematic, with block component type IDs map to circuit component types.
+
+Similar arguments can be made for other tools and other engineering domains.
+
+%\footnote{Netlist - In the context of electronics design, a netlist conveys information about the instances (parts) used, how their pins/ports are connected, and some other attributes.}
+
+%\subsection{LTSpice}
+%LTSpice, and spice 
+%\cite{ltspice}
 
 \begin{figure}[ht!]
 \centering
@@ -64,16 +85,13 @@ LTSpice, and spice
 
 \clearpage
 
-%\cite{ltspice}
-
-
-
 \section{Block Diagram Sketch Capture}
 
-
+%TODO
 
 \subsection{Engineering Sketch Recognition \& Simulation}
 
+%TODO
 
 \begin{figure}[ht!]
 \centering
@@ -86,13 +104,45 @@ LTSpice, and spice
 
 \subsubsection{QuickDiagram}
 
-
+%TODO
 
 \subsection{Electronic Whiteboards}
 
-
+%TODO
 
 \subsection{Block Component Identification}
+
+%TODO
+
+%introduce problem fiduciary markers
+%markers
+	%artag
+%ocr
+	%don't want to use OCR for many cases - math symbols, domain specific symbols
+%barcodes (1D)
+%QR codes (2D)
+
+\subsubsection{Fiduciary Markers}
+
+%TODO
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=50mm]{images/artoolkit1.png}
+\includegraphics[width=50mm]{images/artoolkit2.jpg}
+\caption{Custom fiduciary markers for ARToolKit \cite{fiducialPic}}
+\label{im:fiducialPic}
+\end{figure}
+
+\clearpage
+
+\subsubsection{OCR}
+
+%TODO
+
+\subsubsection{Barcodes}
+
+%TODO
 
 %\cite{sketchInterpSoftware}
 %\cite{quickDiagram}
@@ -107,23 +157,21 @@ LTSpice, and spice
 %\cite{artoolkit}
 %\cite{ltspice}
 
-
 %\cite{fiducial}
 %\cite{fiducialAR}
 % G. Schall et al
 %\cite{colorFiducial}
 % H. Bagherinia et al
 
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=50mm]{images/fiducialPic.jpg}
-\caption{Example of fiducials present on a \gls{pcb} \cite{fiducialPic}}
-\label{im:fiducialPic}
-\end{figure}
-
-\clearpage
+%\begin{figure}[ht!]
+%\centering
+%\includegraphics[width=50mm]{images/fiducialPic.jpg}
+%\caption{Example of fiducials present on a \gls{pcb} \cite{fiducialPic}}
+%\label{im:fiducialPic}
+%\end{figure}
 
 
+% =====================================================================
 
 \subsubsection{Frame Markers}
 \label{ch:back:borders}
@@ -132,30 +180,7 @@ As an alternative to symbol, text or traditional barcode recognition, a special 
 
 An extremely simple version of this concept could involve placing a small dot in the corner of the marker which corresponds to its unique ID. This gives 4 possible marker types. A more comprehensive alternative could encode the unique ID in a continuous, barcode-like pattern along the inner border of the marker. This could allow for a range of hundreds of unique IDs, only limited by the resolution of the marker in the image.
 
-Vuforia\footnote{Vuforia - \url{https://www.vuforia.com}}, a computer vision platform for augmented reality (\gls{ar}) on mobile devices, implements frame marker recognition. For the marker type in Figure \ref{im:frameMarker}, a range of 512 unique IDs are available, with relatively low processing power required for recognition. However, verbatim use of this implementation does not suit BlocSim - their markers require a clearance area around the frame border free of graphical features, while block diagram sketches involve connecting blocks via touching lines.
-
-\cite{vuforia}
-
-
-Due to the relatively low processing power required to decode the marker ID, all 512 frame markers can be used in an application.
-
-The size of the marker depends on the application environment. In our recommended scenarios of near field usage environments, the real marker can have a typical size of 1 to 4 inches or 3 to10 cm. We refer to the actual size as the measured size of the printed target. The small size allows using markers as game pieces or playing cards in a game or 3D animated experience.
-
-
-Area around the marker’s black frame is:
-
-Free of graphical elements
-Typically twice as wide as the black frame
-Bright to provide good contrast to the frame
-Black frame is used to recognize the marker in the environment as seen by the camera during run-time
-
-ID area inside the frame encodes the ID of the marker in a binary pattern
-
-Design area (orange) is free to carry any design to make the frame marker visually appealing and potentially contain additional information for the end user
-
-Vuforia SDK does not evaluate this marker area
-
-
+Vuforia\footnote{Vuforia - \url{https://www.vuforia.com}}, a computer vision platform for augmented reality (\gls{ar}) on mobile devices, implements frame marker recognition. For the marker type in Figure \ref{im:frameMarker}, a range of 512 unique IDs are available, with relatively low processing power required for recognition \cite{vuforia}. However, verbatim use of this implementation does not suit BlocSim - Vuforia's markers require a clearance area around the frame border free of graphical features, while in a block diagram sketch the connector lines will violate this space.
 
 Overall, this is a highly promising method for encoding block identities.
 %, allowing a very large range of types and increasing reliability by removing the need for colour detection.
@@ -170,7 +195,6 @@ Overall, this is a highly promising method for encoding block identities.
 \clearpage
 
 %\cite{vuforia}
-
 
 % =====================================================================
 
@@ -236,7 +260,7 @@ Working in Matlab offers different advantages. Matlab's Computer Vision System t
 \label{im:cvlogo}
 \end{figure}
 
-\subsection{Techniques}
+%\subsection{Techniques}
 
 
 %select OpenCV; discuss useful features it has with footnotes
@@ -306,6 +330,7 @@ Working in Matlab offers different advantages. Matlab's Computer Vision System t
 
 
 \subsection{Computer Vision Requirements}
+\label{sec:techSelection}
 
 
 %TODO
@@ -382,7 +407,15 @@ BlocSim is to be licensed under GPLv2 \cite{gplv2}, a permissive license which g
 
 \chapter{Implementation}
 
-%TODO
+Implementation of the BlocSim prototype followed the choices of technologies and libraries laid out in Section \ref{sec:techSelection}. The primary focus was on rapid development and maximising user-friendliness of the \gls{ui} design. The result is a monolithic Python program covering all functionality, with a web control panel powered and styled by JQuery\footnote{JQuery - \url{http://jquery.com} and \url{http://jqueryui.com}}.
+\\
+
+To start BlocSim, users simply navigate to the \texttt{demo} folder and execute \texttt{./blocsim.py}. The webserver and associated services will start automatically. BlocSim will connect to the first available webcam, load its stored configuration from a JSON file (\texttt{config/config.db}), and start processing webcam frames.
+\\
+
+\newpage
+
+Users can access the control panel and view the video stream from any computer in the network: simply navigate to \texttt{http://<host address>:8080}.
 
 \begin{figure}[ht!]
 \centering
@@ -391,16 +424,29 @@ BlocSim is to be licensed under GPLv2 \cite{gplv2}, a permissive license which g
 \label{im:blocsimlogo}
 \end{figure}
 
-\clearpage
+\vspace{0.5 cm}
 
-
+A high-resolution (1920x1080 pixels), consumer-affordable webcam (Logitech C920 HD\footnote{Logitech C920 HD Webcam - \url{http://www.logitech.com/en-au/product/hd-pro-webcam-c920}}) was acquired to ensure capture resolution was not the limiting factor in the computer vision component. The camera is approximately 1m from the board.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=125mm]{images/photo2.jpg}
+\includegraphics[width=175mm]{images/photo2.jpg}
 \caption{Camera and whiteboard demonstration setup}
 \label{im:hardware1}
 \end{figure}
+
+\clearpage
+
+A demonstration block diagram has been constructed on a magnetic whiteboard. Aside from a loop of four valid electrical-circuit-themed blocks, the board includes a number of test features:
+\begin{itemize}
+\item a connector line with no connections (right)
+\item a circular red block (right)
+\item a 'block within a block' (left of circle)
+\item a 'loose' block component (no connections, top)
+\item stray image features in the same colour as block diagram components, but invalid configuration ('Bloc Sim' title, center)
+\end{itemize}
+
+The 'V1' and 'R1' components are magnetic cards, while all other features on the whiteboard consist of whiteboard marker directly drawn onto the board. There is little practical difference between the two, as the magnetic cards have similar visual properties (white, reflective, rendered with whiteboard marker)
 
 \begin{figure}[ht!]
 \centering
@@ -412,24 +458,42 @@ BlocSim is to be licensed under GPLv2 \cite{gplv2}, a permissive license which g
 
 \clearpage
 
-
 \section{Features \& Usage}
 
-%TODO
+The BlocSim web control panel can be seen in Figure \label{im:screenshot_cv1}. Three tabs (Webcam, Publish/Subscribe, RPC) are available (top). Basic controls are available on a sidebar to the left, including pausing the video feed, switching webcams, video feed quality and selectively enabling publish/susbscribe streaming. The sidebar also signals if a feature on the server is unavailable (green/orange/red lights).
+
+In the webcam tab, a select menu (combo box) above the video feed allows the user to select one of 16 streams to view. These images are generated during each stage of analysis of the webcam sketch, enabling users to better appreciate how BlocSim works and, in the case of sketch capture failing, troubleshoot their capture configuration.
+\\
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=150mm]{images/screenshot_cv1.png}
+\includegraphics[width=175mm]{images/screenshot_cv1.png}
 \caption{The BlocSim Web Control Panel \cite{blocsim}}
 \label{im:screenshot_cv1}
 \end{figure}
 
+\newpage
+
+Scrolling down, a calibration panel provides sliders which update the configuration of the computer vision processing in real time. This is primarily for developer debugging purposes, but also allows users to easily adjust settings if the lighting changes significantly, and crop the video feed to only show the block diagram on a whiteboard. A row of buttons provides additional functionality, allowing the user to load and save this configuration, or save the current block diagram model (including all 16 processed images) to a folder.
+\\
+
+At the bottom of the Webcam tab, the last JSON message received from the server is displayed, showing details such as the framerate, frame dimensions and frame filesize.
+\\
+
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=150mm]{images/screenshot_calib.png}
-\caption{BlocSim Control Panel - calibration sliders \cite{blocsim}}
+\includegraphics[width=170mm]{images/screenshot_calib2.png} %\\
+%\vspace{0.1 cm}
+\includegraphics[width=170mm]{images/screenshot_info2.png}
+\caption{BlocSim Control Panel - calibration sliders and server message \cite{blocsim}}
 \label{im:screenshot_calib}
 \end{figure}
+
+\newpage
+The Publish/Subscribe tab shows the JSON model corresponding to the block diagram in the current frame. This model (minus the space formatting) is published to the Mosquitto broker on every frame.
+\\
+
+To subscribe to the model, open a command line window and run: \\ \texttt{mosquitto\_sub -t blocsim}
 
 \begin{figure}[ht!]
 \centering
@@ -438,6 +502,10 @@ BlocSim is to be licensed under GPLv2 \cite{gplv2}, a permissive license which g
 \label{im:screenshot_pubsub}
 \end{figure}
 
+\newpage
+
+The final tab, RPC, is simply a log of all remote procedure calls made to the server. In order to demonstrate this feature, some of the UI buttons are implemented as remote procedure calls. An example python JSON-RPC script is show on-screen; a full list of available procedures is available on GitHub.
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=150mm]{images/screenshot_rpc.png}
@@ -445,71 +513,104 @@ BlocSim is to be licensed under GPLv2 \cite{gplv2}, a permissive license which g
 \label{im:screenshot_rpc}
 \end{figure}
 
-\clearpage
+%\clearpage
 
+\newpage
 
+\subsection{Computer Vision}
+
+The following pages are an abridged walkthrough of the computer vision processes employed by BlocSim. Not all image frames are reviewed.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=125mm]{images/frame1.jpg}
+\includegraphics[width=140mm]{images/frame1.jpg}
 \caption{BlocSim output image (1) - cropped frame \cite{blocsim}}
 \label{im:frame1}
 \end{figure}
 
+\newpage
+Image 3: shows the cropped frame after applying threshold bounds for hue, saturation and brightness (value) in the HSV colour range \& removing noise
+
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=125mm]{images/frame3.jpg}
+\includegraphics[width=140mm]{images/frame3.jpg}
 \caption{BlocSim output image (3) - red \cite{blocsim}}
 \label{im:frame3}
 \end{figure}
 
+\newpage
+Image 4: shows the set of rectangular red contours which classified as potential block markers. Note that the circle has been rejected for being non-rectangular. The small hidden red shape on the right was rejected as it is not a closed, hollow shape. The bounding regions of the blocks are minimum rectangles which follow their axis of rotation. 
+
+Also note that the whiteboard is not directly facing the camera (it is out-of-plane). This small distortion effect does not impact the recognition of the block diagram model.
+
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=125mm]{images/frame4.jpg}
+\includegraphics[width=140mm]{images/frame4.jpg}
 \caption{BlocSim output image (4) - red block \cite{blocsim}}
 \label{im:frame4}
 \end{figure}
 
+\newpage
+Image 8: A similar procedure to images 2..4 has been applied to Green colour regions already. Only solid, approximately round shapes inside a red rectangle from (4) are accepted.
+
+The green dots identify the block types. Note the red block in the centre has been rejected, as its only green dot is not near the corner of the shape. The red contour surrounding the word 'Sim' is also being ignored, as it did not contain an identifying dot.
+
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=125mm]{images/frame8.jpg}
+\includegraphics[width=140mm]{images/frame8.jpg}
 \caption{BlocSim output image (8) - block ID \cite{blocsim}}
 \label{im:frame8}
 \end{figure}
 
+\newpage
+Image 12: Thresholding has been applied to black regions of the image. The bounds on what is considered a 'black' region are very broad to account for reflections on the whiteboard. 
+
+The black regions are candidates for connector lines. They are dilated (expanded), and any part of the dilated regions intersecting a red block is considered a node. Any connectors without nodes will be ignored later.
+
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=125mm]{images/frame12.jpg}
+\includegraphics[width=140mm]{images/frame12.jpg}
 \caption{BlocSim output image (12) - connector lines (mask) \cite{blocsim}}
 \label{im:frame12}
 \end{figure}
 
+\newpage
+Image 13: Nodes have been marked on the image.
+
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=125mm]{images/frame13.jpg}
+\includegraphics[width=140mm]{images/frame13.jpg}
 \caption{BlocSim output image (13) - connection nodes \cite{blocsim}}
 \label{im:frame13}
 \end{figure}
 
+\newpage
+Image 15: All information so far has been combined, and paths between nodes and blocks drawn. For each connector line candidate from (12), all nodes within its perimeter are joined together. 
+
+The result is a set of 4 identified blocks joined by a circular path, with a 5th block disconnected (top).
+
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=125mm]{images/frame15.jpg}
+\includegraphics[width=140mm]{images/frame15.jpg}
 \caption{BlocSim output image (15) - block diagram overlay \cite{blocsim}}
 \label{im:frame15}
 \end{figure}
 
+\newpage
+Image 16: This final image shows the block diagram model without the background image.
+
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=125mm]{images/frame16.jpg}
+\includegraphics[width=140mm]{images/frame16.jpg}
 \caption{BlocSim output image (16) - block model \cite{blocsim}}
 \label{im:frame16}
 \end{figure}
 
 \clearpage
-
-
-
 \newpage
+
+Finally, we have the JSON Block diagram model corresponding to the previous set of images. Only a sample of the blocks and nodes are shown for brevity. The model consists of a list of blocks and list of nodes, each of which is assigned an ID, position, and list of connecting components. Block markers also describe their shape/size and block type.
+
 \begin{figure}[ht!]
 	\fontsize{8pt}{8pt}
 	\singlespacing
@@ -529,12 +630,25 @@ BlocSim is to be licensed under GPLv2 \cite{gplv2}, a permissive license which g
 
 \section{Technical Architecture}
 
+Figure \ref{im:BlocsimBD3} shows the overall architecture of the BlocSim prototype's implementation. Broadcast messages are sent over the websocket connection by both the client (browser) and server at 10Hz. On each message, the server updates the browser client with all relevant information related to the last-processed frame. The client browser sends the server the current state of all its UI elements, including computer vision configuration sliders.
+\\
+
+The server stores all configuration items in a json keystore. This keystore is updated every time a client's broadcast packet arrives. While this is an acceptable implementation for a single client, this model will have to be updated to support multiple clients.
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=170mm]{images/BlocsimBD3.jpg}
 \caption{BlocSim's Architecture}
 \label{im:BlocsimBD3}
 \end{figure}
+
+Initially, BlocSim was built to stream the webcam feed in an .MJPEG format. However, MJPEG connections proved difficult to manage, partially due to a bug in the Webkit implementation for some browsers where the only way to disconnect the .MJPEG stream from the server is to close the tab.
+\\
+
+Instead, each websocket connection has associated with it a currently streaming image ID. Within each broadcast message, this image is encoded into a base64 string (which increases the file size by x1.33). This image is assigned to the 'data' URI of a .jpg image by javascript upon arrival at the browser.
+\\
+
+This is an acceptable implementation for the low frame rates required watching a primarily static diagram.
 
 \begin{figure}[ht!]
 \centering
@@ -543,10 +657,8 @@ BlocSim is to be licensed under GPLv2 \cite{gplv2}, a permissive license which g
 \label{im:BlocsimBD4}
 \end{figure}
 
-%TODO
-
 %\newpage
-\clearpage
+%\clearpage
 
 \noindent The Python webserver's functionality is split into several threads, including:
 
@@ -561,22 +673,18 @@ BlocSim is to be licensed under GPLv2 \cite{gplv2}, a permissive license which g
 
 \noindent These threads communicate via a series of event signallers and shared resources, such as the keystore database and image processing output.
 
-
-
 \vspace{1 cm}
 
-\noindent For more information, see the resources outlined in Appendix \ref{ch:appendix}.
-
+\noindent For more information on BlocSim's implementation and usage, see the resources outlined in Appendix \ref{ch:appendix}.
 
 
 % =====================================================================
 
 \chapter{Project Evaluation}
 
-%TODO
-
-
 \section{Completion}
+
+The creation of the BlocSim prototype according to speicifications laid out in Chapter \ref{ch:spec} was generally completed successfully. The system is very user friendly, very accessible and is able to interpret simple block diagram models. Unfortunately, due to time constraints the demonstration adapter for converting the block model into a digital logic model was not completed. Additionally, further work is required to synchronise the UI between multiple control panels.
 
 \begin{table}[ht!]
 	\center
@@ -602,8 +710,6 @@ BlocSim is to be licensed under GPLv2 \cite{gplv2}, a permissive license which g
 
 \clearpage
 
-
-
 \section{Performance}
 
 %TODO
@@ -611,21 +717,11 @@ BlocSim is to be licensed under GPLv2 \cite{gplv2}, a permissive license which g
 
 \subsection{Speed \& Resource Usage}
 
-
-
-%\subsubsection{Network}
-\paragraph{Network}
-
-
-
-%\subsubsection{CPU}
-\paragraph{CPU}
-
-
-
-%\subsubsection{Frame Rate}
-\paragraph{Frame Rate}
-
+\begin{description}
+	\item[Network] - For a 1080p image cropped to approximately 50\% of its width and height, the jpeg frame size after base64 encoding is approximately 60KB. At a nominal frame rate of 5FPS, this gives 2.4mbps bandwidth for video, which is quite manageable on local networks. A blocsim server intended for remote access over the web should be constrained to a lower frame rate using the UI controls.
+	\item[CPU] - This has not been extensively tested. On a MacBook Pro Retina with a 2.4GHz i5 processor, 8GB RAM, and integrated Intel graphics, the server ran at approximately 70\% CPU usage with one client attached (local). This is acceptable for personal use on a modern middle-range computer. 
+	\item[Frame Rate] - At a full 1080p on the above system, BlocSim was able to maintain image processing at the speed-limited 5FPS.
+\begin{description}
 
 
 \subsection{Computer Vision Reliability}
