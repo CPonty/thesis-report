@@ -26,6 +26,7 @@ An open-source prototype of BlocSim shall be built which achieves this functiona
 % =====================================================================
 
 \chapter{Background}
+\label{ch:back}
 
 \section{Block Diagrams in Engineering}
 
@@ -267,6 +268,7 @@ Given that BlocSim's key functionality requires converting block models to be co
 
 
 \section{Computer Vision Software}
+\label{sec:cv}
 
 As BlocSim's core functionality involves interpreting hand-drawn sketches, it will require the ability to perform image processing on a captured sketch.
 
@@ -313,8 +315,41 @@ Working in Matlab offers different advantages. Matlab's Computer Vision System t
 \chapter{BlocSim Specification}
 \label{ch:spec}
 
+The BlocSim prototype's role is to capture a sketch of a block-diagram-like model from a whiteboard using a webcam, and update external simulation tools with an adapted model in real-time. 
 
+%\newpage
 \section{Solution Concept}
+
+In considering the direction to take with the BlocSim prototype, the following idea has been given precedence: 
+\\
+
+\setlength{\leftskip}{1cm}
+
+\noindent The created prototype should above all be functional, configurable, extensible, flexible, user friendly and have transparent functionality, as the BlocSim project will require further work after the prototype's completion
+\\
+
+\setlength{\leftskip}{0cm}
+
+%\subsection{Feature Requirements}
+
+\noindent Keeping this statement in mind, the computer vision methodology is to be implemented in as straightforward and reliable fashion as possible.
+
+A list of features the prototype should include, expressed in an 'Agile Story' format:
+
+\begin{itemize}
+\item The user should have the ability to view the computer vision process in real time, both as a demonstration and for debugging purposes
+\item The user should have the ability to configure constants/parameters for image processing in real time
+\item The user should have the ability to control and configure BlocSim remotely
+\item The user should have the ability to write their own software which controls BlocSim
+\item BlocSim should publish the block diagram model it recognizes to a location accessible to other software
+\item The user should have the ability to write their own 'Adapter' software, to receive BlocSim's model of the block diagram being viewed, reinterpret it into a domain-specific model, and forward it to an external simulation tool
+\item The prototype should include an example of the above for logic gate simulation
+
+These requirements give rise to the high-level system design shown in Figure \ref{im:BlocsimBD1}.
+\end{itemize}
+
+%The BlocSim Prototype
+%TODO
 
 
 \begin{figure}[ht!]
@@ -333,10 +368,53 @@ Working in Matlab offers different advantages. Matlab's Computer Vision System t
 
 \section{Block Diagram Capture}
 
-
-
 \subsection{Fiducial Design}
 
+The design of the block fiducial markers for the BlocSim prototype borrows from the simplest available concepts analysed in Chapter \ref{ch:back}. The blocks involved in the block diagram sketch are to be printed preassembled on pieces of magnetic card. The magnetic cards can be placed on the whiteboard to construct the block diagram. The method of encoding the block type is the simplest possible: place a coloured dot in one of the four corners of the block; it's position yields the block type. Instead of leaving a margin of empty space around the block marker (the approach of ARTag and Vuforia, Section \ref{ch:back:borders}), make the block marker border a colour reserved for block borders within the image, allowing drawn connector lines to contact it.
+
+Image features are colour-coded as per Figure \ref{tab:color}; block types identified as per Figure \ref{tab:blockid}. Black is chosen for hand-drawn lines to maximise reliability. Red and Green are a suitable pair of colours to utilise as they are easily separated in common colour spaces: in the Red, Green, Blue (\gls{rgb}) colour space, they exist on separate channels; in the Hue, Saturation, Value (\gls{hsv}) colour space, they are separated by 120 degrees on the hue wheel.
+
+\begin{table}[ht!]
+	\center
+	\begin{tabular}{r l} %$
+		\hline
+		\rowstyle{\bfseries}
+		Image Feature & Colour \\
+		\hline
+		Hand-Drawn Connector Lines & \textbf{Black} \\
+		Block Marker Border & \textbf{Red} \\
+		Block Marker Fiduciary Dot & \textbf{Green} \\
+		\hline
+	\end{tabular}
+	\caption{Colour allocation for the BlocSim whiteboard block diagram}
+	\label{tab:color}
+\end{table} 
+%\vspace{0.5 cm}
+\begin{table}[ht!]
+	\center
+	\begin{tabular}{r l} %$
+		\hline
+		\rowstyle{\bfseries}
+		Fiduciary Dot Location & Block Type ID \\
+		\hline
+		Top-Left & 0 / A \\
+		Top-Right & 1 / B \\
+		Bottom-Right & 2 / C \\
+		Bottom-Left & 3 / D \\
+		\hline
+	\end{tabular}
+	\caption{Block Type decoding in the BlocSim whiteboard block diagram}
+	\label{tab:color}
+\end{table} 
+\vspace{0.5 cm}
+
+This approach was chosen primarily for its simplicity in the prototype. The block designs are sufficiently simple to be drawn by hand using regular whiteboard markers.
+\\
+
+The primary drawback is that the blocks cannot be rotated past +/- 45 degrees - the computer vision algorithm will not be aware that the block is on its side, as it has no orientation information.
+
+%TODO table mapping corners to A/0
+%TODO table mapping corners to A/0
 
 %TODO
 
@@ -344,29 +422,27 @@ Working in Matlab offers different advantages. Matlab's Computer Vision System t
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=100mm]{images/BlocsimBloc1.jpg}
-\caption{BlocSim Block Diagram format (sketch)}
+\includegraphics[width=100mm]{images/BlocsimBloc2.jpg}
+\includegraphics[width=100mm]{images/BlocsimBloc3.jpg}
+\caption{BlocSim Block Diagram formats: Sketch (top), Model (middle), Digital Logic (lower). Block types A}
 \label{im:BlocsimBD1}
 \end{figure}
 
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=100mm]{images/BlocsimBloc2.jpg}
-\caption{BlocSim Block Diagram format (model)}
-\label{im:BlocsimBD2}
-\end{figure}
+%\begin{figure}[ht!]
+%\centering
+%\includegraphics[width=100mm]{images/BlocsimBloc2.jpg}
+%\caption{BlocSim Block Diagram format (model)}
+%\label{im:BlocsimBD2}
+%\end{figure}
 
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=100mm]{images/BlocsimBloc3.jpg}
-\caption{BlocSim Block Diagram format (block types A,B,C,D mapped to Digital Logic gates)}
-\label{im:BlocsimBD3}
-\end{figure}
+%\begin{figure}[ht!]
+%\centering
+%\includegraphics[width=100mm]{images/BlocsimBloc3.jpg}
+%\caption{BlocSim Block Diagram format (block types A,B,C,D mapped to Digital Logic gates)}
+%\label{im:BlocsimBD3}
+%\end{figure}
 
 \clearpage
-
-
-
-\subsection{Computer Vision Requirements}
 
 
 %TODO
@@ -401,9 +477,7 @@ Working in Matlab offers different advantages. Matlab's Computer Vision System t
 
 
 
-%TODO
-
-
+In order to fulfil the feature requirements laid out above, a series of choices must be made regarding which technologies, libraries and tools to use in which roles.
 
 %\cite{facebookTornado}
 %\cite{socketioBugs}
@@ -424,9 +498,23 @@ Working in Matlab offers different advantages. Matlab's Computer Vision System t
 \footnotetext[11]{Flask - \url{http://flask.pocoo.org/}}
 \footnotetext[12]{Socket.io - \url{http://socket.io/}}
 \footnotetext[13]{Redis - \url{http://redis.io/}}
-\footnotetext[14]{Meteor - \url{https://www.meteor.com/}}
+%\footnotetext[14]{Meteor - \url{https://www.meteor.com/}}
 
-\clearpage
+\newpage
+
+\begin{description}
+	\item[Python] was selected as the primary programming language. It is well suited to the role of acting as 'glue' between a multitude of libraries in prototyping projects. I am also highly familiar with python, which will expedite development.
+	\item[OpenCV] was selected as the computer vision library of choice, as per analysis in Section \ref{sec:cv}.
+	\item[Web Browser] was selected as the control panel user interface. Using a browser for a UI is an easy way to achieve broad cross-platform compatibility and to enable remote access, both making the project more accessible and flexible.
+	\item[Tornado] was selected as the web framework of choice in Python. Tornado is one of the most popular Python web frameworks. The Facebook team acquired it and made it open-source as a solution for high-speed communication and large traffic volumnes. After comparison with the Flask \footnotemark[11] web framework, Tornado was selected as it had a higher level of community activity and support, as well as more convenient extra libraries available (such as TornadoRPC).
+	\item[Websockets] were chosen as the communication medium of choice. Websockets provide a high-speed, bi-directional communication channel between the client (browser) and server (BlocSim). Two major wrapper libraries exist for websockets currently, SockJS and Socket.io\footnotemark[12]. SockJS was selected after discovering a number of bugs in the Socket.io client \cite{socketioBugs}.
+	\item[JSON] was selected as the standard communication and storage format across all BlocSim systems. JSON is convenient to work with in Python, as JSON objects can convert directly to Python dictionary structures and vice versa. JSON can act as a standard data format for the local configuration save file (keystore), for client-server communication, and for block diagram model publishing. This is especially convenient, as the web control panel will be written in Javascript.
+	\item[TornadoRPC] is the solution to remote control of BlocSim via external software. Not only is it capable of handling JSON remote procedure calls, it's incredibly simple to use and integrates tightly with the Tornado webserver as a request handler.
+	\item[Mosquitto,] a lightweight publish/subscribe broker, was selected as the method of publishing block diagrams models for external access. After a brief comparison with an alternative publish/subscribe system, Redis\footnotemark[13], Mosquitto was selected. Both systems are easy to interact with through a Python client, however Mosquitto is built for publishing contiguous messages while Redis acts as a keystore. There was no point in separating the data in the block diagram models into key-value pairs, as the values are all associated with the particular frame they came from. Most of all, I had already worked with Mosquitto before.
+\end{description}
+
+
+%\clearpage
 
 % =====================================================================
 
