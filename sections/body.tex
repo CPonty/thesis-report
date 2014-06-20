@@ -372,7 +372,7 @@ These requirements give rise to the high-level system design shown in Figure \re
 
 The design of the block fiducial markers for the BlocSim prototype borrows from the simplest available concepts analysed in Chapter \ref{ch:back}. The blocks involved in the block diagram sketch are to be printed preassembled on pieces of magnetic card. The magnetic cards can be placed on the whiteboard to construct the block diagram. The method of encoding the block type is the simplest possible: place a coloured dot in one of the four corners of the block; it's position yields the block type. Instead of leaving a margin of empty space around the block marker (the approach of ARTag and Vuforia, Section \ref{ch:back:borders}), make the block marker border a colour reserved for block borders within the image, allowing drawn connector lines to contact it.
 
-Image features are colour-coded as per Figure \ref{tab:color}; block types identified as per Figure \ref{tab:blockid}. Black is chosen for hand-drawn lines to maximise reliability. Red and Green are a suitable pair of colours to utilise as they are easily separated in common colour spaces: in the Red, Green, Blue (\gls{rgb}) colour space, they exist on separate channels; in the Hue, Saturation, Value (\gls{hsv}) colour space, they are separated by 120 degrees on the hue wheel.
+Image features are colour-coded as per Table \ref{tab:color}; block types identified as per Table \ref{tab:blockid}. Black is chosen for hand-drawn lines to maximise reliability. Red and Green are a suitable pair of colours to utilise as they are easily separated in common colour spaces: in the Red, Green, Blue (\gls{rgb}) colour space, they exist on separate channels; in the Hue, Saturation, Value (\gls{hsv}) colour space, they are separated by 120 degrees on the hue wheel.
 
 \begin{table}[ht!]
 	\center
@@ -404,7 +404,7 @@ Image features are colour-coded as per Figure \ref{tab:color}; block types ident
 		\hline
 	\end{tabular}
 	\caption{Block Type decoding in the BlocSim whiteboard block diagram}
-	\label{tab:color}
+	\label{tab:blockid}
 \end{table} 
 \vspace{0.5 cm}
 
@@ -424,8 +424,8 @@ The primary drawback is that the blocks cannot be rotated past +/- 45 degrees - 
 \includegraphics[width=100mm]{images/BlocsimBloc1.jpg}
 \includegraphics[width=100mm]{images/BlocsimBloc2.jpg}
 \includegraphics[width=100mm]{images/BlocsimBloc3.jpg}
-\caption{BlocSim Block Diagram formats: Sketch (top), Model (middle), Digital Logic (lower). Block types A}
-\label{im:BlocsimBD1}
+\caption{BlocSim Block Diagram formats: Sketch (top), Model (middle), Digital Logic (lower).}
+\label{im:BlocsimBloc}
 \end{figure}
 
 %\begin{figure}[ht!]
